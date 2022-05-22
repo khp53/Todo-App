@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
-  final bool isObscured;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final iconData;
@@ -22,7 +21,6 @@ class CustomTextFormField extends StatelessWidget {
     required this.hintText,
     this.controller,
     this.validator,
-    required this.isObscured,
     this.iconData,
     this.sufixText,
     this.iconData2,
@@ -48,7 +46,7 @@ class CustomTextFormField extends StatelessWidget {
       textInputAction: textInputAction,
       enabled: isEnabled,
       onChanged: onChanged,
-      obscureText: isObscured,
+      obscureText: false,
       controller: controller,
       validator: validator,
       style: Theme.of(context).textTheme.bodyText1,

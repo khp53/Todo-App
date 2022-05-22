@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:todo_app/dependencies/dependency.dart';
 import 'package:todo_app/screens/viewmodel.dart';
+import 'package:todo_app/services/todo/todo_services.dart';
 
 class HomeViewmodel extends Viewmodel {
   static final HomeViewmodel _instance = HomeViewmodel._internal();
@@ -8,9 +11,12 @@ class HomeViewmodel extends Viewmodel {
 
   HomeViewmodel._internal();
 
+  TodoServices get _todoServices => dependency();
+
   bool _isLoading = false;
   bool _isCompleted = false;
   int _selectedIndex = 0;
+  final formKey = GlobalKey<FormState>();
 
   bool get isLoading => _isLoading;
   set isLoading(bool value) {
@@ -30,8 +36,8 @@ class HomeViewmodel extends Viewmodel {
     turnIdle();
   }
 
-  // TextEditingController? _titleController;
-  // TextEditingController? _descriptionController;
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   // TextEditingController? get titleController => _titleController;
 
@@ -46,4 +52,11 @@ class HomeViewmodel extends Viewmodel {
   //   _descriptionController = value;
   //   turnIdle();
   // }
+
+  // add new task
+  addtask() async {
+    var res = await _todoServices.addNewTask(
+        titleController.text, descriptionController.text);
+    return res;
+  }
 }
