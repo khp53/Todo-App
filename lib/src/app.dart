@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/common/themes.dart';
+import 'package:todo_app/screens/home/home_view.dart';
 import 'settings/settings_controller.dart';
 
 /// The Widget that configures your application.
