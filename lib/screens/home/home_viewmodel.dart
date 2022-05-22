@@ -15,6 +15,7 @@ class HomeViewmodel extends Viewmodel {
 
   bool _isLoading = false;
   bool _isCompleted = false;
+  bool _isFirstRun = false;
   int _selectedIndex = 0;
   final formKey = GlobalKey<FormState>();
 
@@ -27,6 +28,12 @@ class HomeViewmodel extends Viewmodel {
   bool get isCompleted => _isCompleted;
   set isCompleted(bool value) {
     _isCompleted = value;
+    turnIdle();
+  }
+
+  bool get isFirstRun => _isFirstRun;
+  set isFirstRun(bool value) {
+    _isFirstRun = value;
     turnIdle();
   }
 
