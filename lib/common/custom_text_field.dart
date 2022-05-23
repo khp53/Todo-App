@@ -4,8 +4,8 @@ class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
-  final iconData;
-  final iconData2;
+  final Widget? iconData;
+  final Widget? iconData2;
   final Widget? sufixText;
   final Function()? onPressed;
   final Function()? onEditingComplete;
