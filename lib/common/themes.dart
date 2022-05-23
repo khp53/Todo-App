@@ -42,8 +42,8 @@ var darkTheme = ThemeData.dark().copyWith(
     brightness: Brightness.dark,
   ),
   hintColor: const Color.fromARGB(255, 181, 181, 181),
-  textTheme: textThemeLight,
-  scaffoldBackgroundColor: const Color(0xfff8f8f8),
+  textTheme: textThemeDark,
+  scaffoldBackgroundColor: Color.fromARGB(255, 21, 21, 21),
 );
 
 var textThemeLight = const TextTheme(

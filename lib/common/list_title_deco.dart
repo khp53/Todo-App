@@ -12,7 +12,7 @@ class ListTileDeco extends StatelessWidget {
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.background,
         boxShadow: [
           BoxShadow(
             offset: const Offset(0, 3),

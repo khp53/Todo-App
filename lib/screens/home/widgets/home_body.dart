@@ -33,75 +33,7 @@ class HomeBody extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                scrollable: true,
-                title: Text(
-                  'Add new task',
-                  style: theme.textTheme.headline2!.copyWith(fontSize: 22),
-                ),
-                content: Form(
-                  key: homeViewmodel.formKey,
-                  child: Column(
-                    children: [
-                      CustomTextFormField(
-                        hintText: 'Add Title',
-                        controller: homeViewmodel.titleController,
-                        textInputAction: TextInputAction.next,
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return 'Title is required';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextFormField(
-                        number: 5,
-                        hintText: 'Add Description',
-                        controller: homeViewmodel.descriptionController,
-                        textInputAction: TextInputAction.done,
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return 'Description is required';
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                actions: <Widget>[
-                  CustomButton(
-                    buttonText: "Cancle",
-                    buttonColor: Colors.white,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    textStyle: theme.textTheme.button!
-                        .copyWith(color: theme.errorColor),
-                  ),
-                  homeViewmodel.isLoading == false
-                      ? CustomButton(
-                          buttonText: "Add",
-                          buttonColor: theme.colorScheme.primary,
-                          onPressed: () => addTasks(context),
-                          textStyle: theme.textTheme.button,
-                        )
-                      : CustomButton(
-                          buttonText: "...",
-                          buttonColor: theme.colorScheme.primary,
-                          onPressed: () {},
-                          textStyle: theme.textTheme.button,
-                        )
-                ],
-              );
-            },
-          );
+          addtask(context, theme);
         },
         backgroundColor: theme.colorScheme.primary,
         child: const Icon(
@@ -127,6 +59,78 @@ class HomeBody extends StatelessWidget {
         unselectedItemColor: theme.colorScheme.secondary,
         onTap: _onItemTapped,
       ),
+    );
+  }
+
+  Future<dynamic> addtask(BuildContext context, ThemeData theme) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          scrollable: true,
+          title: Text(
+            'Add new task',
+            style: theme.textTheme.headline2!.copyWith(fontSize: 22),
+          ),
+          content: Form(
+            key: homeViewmodel.formKey,
+            child: Column(
+              children: [
+                CustomTextFormField(
+                  hintText: 'Add Title',
+                  controller: homeViewmodel.titleController,
+                  textInputAction: TextInputAction.next,
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return 'Title is required';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextFormField(
+                  number: 5,
+                  hintText: 'Add Description',
+                  controller: homeViewmodel.descriptionController,
+                  textInputAction: TextInputAction.done,
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return 'Description is required';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            CustomButton(
+              buttonText: "Cancle",
+              buttonColor: theme.colorScheme.background,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              textStyle:
+                  theme.textTheme.button!.copyWith(color: theme.errorColor),
+            ),
+            homeViewmodel.isLoading == false
+                ? CustomButton(
+                    buttonText: "Add",
+                    buttonColor: theme.colorScheme.primary,
+                    onPressed: () => addTasks(context),
+                    textStyle: theme.textTheme.button,
+                  )
+                : CustomButton(
+                    buttonText: "...",
+                    buttonColor: theme.colorScheme.primary,
+                    onPressed: () {},
+                    textStyle: theme.textTheme.button,
+                  )
+          ],
+        );
+      },
     );
   }
 
