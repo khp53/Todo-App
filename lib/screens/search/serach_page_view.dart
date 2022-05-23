@@ -2,43 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:todo_app/common/custom_text_field.dart';
+import 'package:todo_app/screens/search/search_viewmodel.dart';
+import 'package:todo_app/screens/search/widgets/search_page_body.dart';
+import 'package:todo_app/screens/task_page/task_page_viewmodel.dart';
+import 'package:todo_app/screens/view.dart';
 
 class SearchPageView extends StatelessWidget {
   const SearchPageView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Search",
-                style: theme.textTheme.headline2,
+    return View(
+      viewmodel: SearchViewmodel(),
+      builder: (_, viewmodel, __) {
+        return View(
+          builder: (_, taskViewmodel, __) {
+            return Scaffold(
+              body: SearchPageBody(
+                viewmodel: viewmodel,
+                tViewmodel: taskViewmodel,
               ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                "Looking for something specific?",
-                style: theme.textTheme.bodyText2,
-              ),
-              const SizedBox(height: 50),
-              CustomTextFormField(
-                hintText: "Search",
-                iconData2: Icon(
-                  Icons.search,
-                  color: theme.colorScheme.primary,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+            );
+          },
+          viewmodel: TaskPageViewmodel(),
+        );
+      },
     );
   }
 }

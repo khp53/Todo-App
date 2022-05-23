@@ -17,13 +17,26 @@ class SearchViewmodel extends Viewmodel {
   bool _isLoading = false;
   final formKey = GlobalKey<FormState>();
 
+  List<Todo> _todos = [];
+
   bool get isLoading => _isLoading;
   set isLoading(bool value) {
     _isLoading = value;
     turnIdle();
   }
 
-  TextEditingController searchController = TextEditingController();
+  List<Todo> get todos => _todos;
+  set todos(List<Todo> value) {
+    _todos = value;
+    turnIdle();
+  }
+
+  String _search = '';
+  String get search => _search;
+  set search(String value) {
+    _search = value;
+    turnIdle();
+  }
 
   // fetch specific tasks from parse server
   Future<List<Todo>> getSearchedTasks() async {

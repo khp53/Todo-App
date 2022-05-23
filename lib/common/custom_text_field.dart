@@ -45,7 +45,7 @@ class CustomTextFormField extends StatelessWidget {
       keyboardType: textInputType,
       textInputAction: textInputAction,
       enabled: isEnabled,
-      onFieldSubmitted: onChanged,
+      onChanged: onChanged,
       obscureText: false,
       controller: controller,
       validator: validator,
