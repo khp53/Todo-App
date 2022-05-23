@@ -59,7 +59,7 @@ var textThemeLight = const TextTheme(
   ),
   subtitle1: TextStyle(
     fontSize: 15,
-    color: Color(0xFFfce1cf),
+    color: Color(0xffec9665),
     fontWeight: FontWeight.normal,
   ),
   bodyText1: TextStyle(

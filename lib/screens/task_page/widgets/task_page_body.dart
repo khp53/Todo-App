@@ -54,6 +54,7 @@ class TaskPageBody extends StatelessWidget {
                             onTap: () => Get.to(
                               () => TaskDetailsPage(
                                 todo: viewmodel.todos[index],
+                                viewmodel: viewmodel,
                               ),
                             ),
                             title: Text(

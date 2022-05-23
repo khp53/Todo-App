@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:todo_app/dependencies/dependency.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/screens/viewmodel.dart';
@@ -12,9 +13,13 @@ class TaskPageViewmodel extends Viewmodel {
   TodoServices get _todoServices => dependency();
 
   TaskPageViewmodel._internal();
+  final formKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
   List<Todo> _todos = [];
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   bool get isLoading => _isLoading;
   set isLoading(bool value) {
@@ -32,5 +37,15 @@ class TaskPageViewmodel extends Viewmodel {
   Future<List<Todo>> getAllTasks() async {
     List<Todo> todos = await _todoServices.getAllTodo();
     return todos;
+  }
+
+  // update tasks
+  updateTasks(Todo todo) {
+    var res = _todoServices.editTask(
+      titleController.text,
+      descriptionController.text,
+      todo,
+    );
+    return res;
   }
 }
