@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/common/custom_button.dart';
 import 'package:todo_app/common/custom_text_field.dart';
+import 'package:todo_app/common/error_alert_popup.dart';
+import 'package:todo_app/common/success_alert_popup.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/screens/home/home_view.dart';
 import 'package:todo_app/screens/stateful_wrapper.dart';
@@ -85,26 +87,27 @@ class TaskEditPage extends StatelessWidget {
                     },
                   ),
                   const Spacer(),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: CustomButton(
-                      buttonText: "Update",
-                      buttonColor: theme.colorScheme.primary,
-                      onPressed: () async {
-                        if (viewmodel.formKey.currentState!.validate()) {
-                          viewmodel.isLoading = true;
-                          var res = await viewmodel.updateTasks(todo);
-                          if (res.success) {
-                            Get.to(
-                              () => const HomeView(),
-                              preventDuplicates: false,
-                            );
-                          }
-                        }
-                      },
-                      textStyle: theme.textTheme.button,
-                    ),
-                  ),
+                  viewmodel.isLoading == false
+                      ? SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: CustomButton(
+                            buttonText: "Update",
+                            buttonColor: theme.colorScheme.primary,
+                            onPressed: () {
+                              updateTask(context);
+                            },
+                            textStyle: theme.textTheme.button,
+                          ),
+                        )
+                      : SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: CustomButton(
+                            buttonText: "Loading...",
+                            buttonColor: theme.colorScheme.primary,
+                            onPressed: () {},
+                            textStyle: theme.textTheme.button,
+                          ),
+                        ),
                 ],
               ),
             ),
@@ -112,5 +115,39 @@ class TaskEditPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  updateTask(context) async {
+    if (viewmodel.formKey.currentState!.validate()) {
+      viewmodel.isLoading = true;
+      var res = await viewmodel.updateTasks(todo);
+      if (res.success) {
+        viewmodel.isLoading = false;
+        Get.back();
+        showDialog(
+          context: context,
+          builder: (context) => SuccessAlertPopUp(
+            successText: "Successfully updated the task!",
+            onPressed: () => Get.to(
+              () => const HomeView(),
+              preventDuplicates: false,
+            ),
+          ),
+        );
+      } else {
+        viewmodel.isLoading = false;
+        Get.back();
+        showDialog(
+          context: context,
+          builder: (context) => ErrorAlertPopUp(
+            errorText: "Failed to update task!",
+            onPressed: () => Get.to(
+              () => const HomeView(),
+              preventDuplicates: false,
+            ),
+          ),
+        );
+      }
+    }
   }
 }

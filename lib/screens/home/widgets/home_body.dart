@@ -138,6 +138,8 @@ class HomeBody extends StatelessWidget {
       var res = await homeViewmodel.addtask();
       if (res.success) {
         homeViewmodel.isLoading = false;
+        homeViewmodel.titleController.clear();
+        homeViewmodel.descriptionController.clear();
         Get.back();
         showDialog(
           context: context,

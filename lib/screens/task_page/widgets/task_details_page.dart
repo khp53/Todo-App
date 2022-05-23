@@ -3,7 +3,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/common/custom_button.dart';
+import 'package:todo_app/common/error_alert_popup.dart';
 import 'package:todo_app/common/list_title_deco.dart';
+import 'package:todo_app/common/success_alert_popup.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/screens/home/home_view.dart';
 import 'package:todo_app/screens/task_page/task_page_viewmodel.dart';
@@ -87,20 +89,23 @@ class TaskDetailsPage extends StatelessWidget {
                     ),
                     textStyle: theme.textTheme.button,
                   ),
-                  CustomButton(
-                    buttonText: "Delete",
-                    buttonColor: theme.colorScheme.background,
-                    onPressed: () async {
-                      viewmodel.isLoading = true;
-                      await todo.delete();
-                      Get.to(
-                        () => const HomeView(),
-                      );
-                    },
-                    textStyle: theme.textTheme.button!.copyWith(
-                      color: theme.colorScheme.error,
-                    ),
-                  ),
+                  viewmodel.isLoading != true
+                      ? CustomButton(
+                          buttonText: "Delete",
+                          buttonColor: theme.colorScheme.background,
+                          onPressed: () => delete(context),
+                          textStyle: theme.textTheme.button!.copyWith(
+                            color: theme.colorScheme.error,
+                          ),
+                        )
+                      : CustomButton(
+                          buttonText: "Loading,,,",
+                          buttonColor: theme.colorScheme.background,
+                          onPressed: () {},
+                          textStyle: theme.textTheme.button!.copyWith(
+                            color: theme.colorScheme.error,
+                          ),
+                        ),
                 ],
               ),
             ],
@@ -108,5 +113,37 @@ class TaskDetailsPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  delete(context) async {
+    viewmodel.isLoading = true;
+    var res = await todo.delete();
+    if (res.success) {
+      viewmodel.isLoading = false;
+
+      showDialog(
+        context: context,
+        builder: (context) => SuccessAlertPopUp(
+          successText: "Successfully deleted the task!",
+          onPressed: () => Get.to(
+            () => const HomeView(),
+            preventDuplicates: false,
+          ),
+        ),
+      );
+    } else {
+      viewmodel.isLoading = false;
+
+      showDialog(
+        context: context,
+        builder: (context) => ErrorAlertPopUp(
+          errorText: "Failed to delete task!",
+          onPressed: () => Get.to(
+            () => const HomeView(),
+            preventDuplicates: false,
+          ),
+        ),
+      );
+    }
   }
 }
