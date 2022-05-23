@@ -27,52 +27,54 @@ class TaskPageBody extends StatelessWidget {
     return StatefulWrapper(
       onInit: onInit,
       child: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Hello!",
-                style: theme.textTheme.headline2,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                "What's your plan today?",
-                style: theme.textTheme.bodyText2,
-              ),
-              const SizedBox(height: 50),
-              viewmodel.todos.isNotEmpty
-                  ? ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: viewmodel.todos.length,
-                      itemBuilder: (context, index) {
-                        return ListTileDeco(
-                          child: ListTile(
-                            onTap: () => Get.to(
-                              () => TaskDetailsPage(
-                                todo: viewmodel.todos[index],
-                                viewmodel: viewmodel,
+        child: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Hello!",
+                  style: theme.textTheme.headline2,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "What's your plan today?",
+                  style: theme.textTheme.bodyText2,
+                ),
+                const SizedBox(height: 50),
+                viewmodel.todos.isNotEmpty
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: viewmodel.todos.length,
+                        itemBuilder: (context, index) {
+                          return ListTileDeco(
+                            child: ListTile(
+                              onTap: () => Get.to(
+                                () => TaskDetailsPage(
+                                  todo: viewmodel.todos[index],
+                                  viewmodel: viewmodel,
+                                ),
+                              ),
+                              title: Text(
+                                viewmodel.todos[index].title,
+                                style: theme.textTheme.bodyText1,
+                              ),
+                              trailing: Checkbox(
+                                onChanged: (val) {},
+                                value: false,
                               ),
                             ),
-                            title: Text(
-                              viewmodel.todos[index].title,
-                              style: theme.textTheme.bodyText1,
-                            ),
-                            trailing: Checkbox(
-                              onChanged: (val) {},
-                              value: false,
-                            ),
-                          ),
-                        );
-                      },
-                    )
-                  : const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-            ],
+                          );
+                        },
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+              ],
+            ),
           ),
         ),
       ),

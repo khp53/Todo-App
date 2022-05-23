@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/common/custom_button.dart';
 import 'package:todo_app/common/custom_text_field.dart';
+import 'package:todo_app/common/error_alert_popup.dart';
+import 'package:todo_app/common/success_alert_popup.dart';
 import 'package:todo_app/screens/home/home_view.dart';
 import 'package:todo_app/screens/home/home_viewmodel.dart';
 import 'package:todo_app/screens/search/serach_page_view.dart';
@@ -85,12 +87,19 @@ class HomeBody extends StatelessWidget {
                     textStyle: theme.textTheme.button!
                         .copyWith(color: theme.errorColor),
                   ),
-                  CustomButton(
-                    buttonText: "Add",
-                    buttonColor: theme.colorScheme.primary,
-                    onPressed: addTasks,
-                    textStyle: theme.textTheme.button,
-                  ),
+                  homeViewmodel.isLoading == false
+                      ? CustomButton(
+                          buttonText: "Add",
+                          buttonColor: theme.colorScheme.primary,
+                          onPressed: () => addTasks(context),
+                          textStyle: theme.textTheme.button,
+                        )
+                      : CustomButton(
+                          buttonText: "...",
+                          buttonColor: theme.colorScheme.primary,
+                          onPressed: () {},
+                          textStyle: theme.textTheme.button,
+                        )
                 ],
               );
             },
@@ -123,12 +132,36 @@ class HomeBody extends StatelessWidget {
     );
   }
 
-  addTasks() async {
+  addTasks(context) async {
     if (homeViewmodel.formKey.currentState!.validate()) {
       homeViewmodel.isLoading = true;
       var res = await homeViewmodel.addtask();
       if (res.success) {
-        Get.to(() => const HomeView(), preventDuplicates: false);
+        homeViewmodel.isLoading = false;
+        Get.back();
+        showDialog(
+          context: context,
+          builder: (context) => SuccessAlertPopUp(
+            successText: "Successfully added the task!",
+            onPressed: () => Get.to(
+              () => const HomeView(),
+              preventDuplicates: false,
+            ),
+          ),
+        );
+      } else {
+        homeViewmodel.isLoading = false;
+        Get.back();
+        showDialog(
+          context: context,
+          builder: (context) => ErrorAlertPopUp(
+            errorText: "Failed to add task!",
+            onPressed: () => Get.to(
+              () => const HomeView(),
+              preventDuplicates: false,
+            ),
+          ),
+        );
       }
     }
   }
