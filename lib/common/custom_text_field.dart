@@ -45,7 +45,7 @@ class CustomTextFormField extends StatelessWidget {
       keyboardType: textInputType,
       textInputAction: textInputAction,
       enabled: isEnabled,
-      onChanged: onChanged,
+      onFieldSubmitted: onChanged,
       obscureText: false,
       controller: controller,
       validator: validator,
@@ -62,7 +62,7 @@ class CustomTextFormField extends StatelessWidget {
         prefixIcon: iconData,
         suffixIcon: iconData2,
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
             width: 2,
             color: Theme.of(context).colorScheme.error,
@@ -72,21 +72,21 @@ class CustomTextFormField extends StatelessWidget {
               color: Theme.of(context).colorScheme.error,
             ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
             width: 2,
             color: Theme.of(context).colorScheme.error.withOpacity(0.6),
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
             width: 2,
             color: Theme.of(context).colorScheme.secondary.withOpacity(0.6),
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
             width: 2,
             color: Theme.of(context).colorScheme.primary.withOpacity(0.6),

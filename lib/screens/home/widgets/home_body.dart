@@ -6,6 +6,7 @@ import 'package:todo_app/common/custom_button.dart';
 import 'package:todo_app/common/custom_text_field.dart';
 import 'package:todo_app/screens/home/home_view.dart';
 import 'package:todo_app/screens/home/home_viewmodel.dart';
+import 'package:todo_app/screens/search/serach_page_view.dart';
 import 'package:todo_app/screens/task_page/task_page_view.dart';
 
 class HomeBody extends StatelessWidget {
@@ -14,9 +15,7 @@ class HomeBody extends StatelessWidget {
 
   static const List<Widget> _widgets = <Widget>[
     TaskPageView(),
-    Text(
-      'Index 1: Business',
-    ),
+    SearchPageView(),
   ];
 
   void _onItemTapped(int index) {

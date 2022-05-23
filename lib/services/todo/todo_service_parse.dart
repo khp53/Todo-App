@@ -36,4 +36,13 @@ class TodoServicesParse implements TodoServices {
     List<Todo> todos = await query.find();
     return todos;
   }
+
+  @override
+  Future<List<Todo>> getSpecificTodo(String searchWord) async {
+    QueryBuilder<Todo> query = QueryBuilder<Todo>(Todo());
+    query.orderByDescending('createdAt');
+    query.whereEqualTo('title', searchWord);
+    List<Todo> todos = await query.find();
+    return todos;
+  }
 }
