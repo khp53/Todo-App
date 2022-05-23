@@ -17,6 +17,7 @@ class TaskPageViewmodel extends Viewmodel {
 
   bool _isLoading = false;
   List<Todo> _todos = [];
+  bool _isDone = false;
 
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -33,6 +34,12 @@ class TaskPageViewmodel extends Viewmodel {
     turnIdle();
   }
 
+  bool get isDone => _isDone;
+  set isDone(bool value) {
+    _isDone = value;
+    turnIdle();
+  }
+
   // fetch all tasks from parse server
   Future<List<Todo>> getAllTasks() async {
     List<Todo> todos = await _todoServices.getAllTodo();
@@ -44,8 +51,15 @@ class TaskPageViewmodel extends Viewmodel {
     var res = _todoServices.editTask(
       titleController.text,
       descriptionController.text,
+      isDone,
       todo,
     );
+    return res;
+  }
+
+  // update task completion
+  updateTaskCompletion(Todo todo) {
+    var res = _todoServices.taskCompletion(todo, isDone);
     return res;
   }
 }

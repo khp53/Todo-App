@@ -14,7 +14,7 @@ class TodoServicesParse implements TodoServices {
   }
 
   @override
-  editTask(String title, String description, Todo todos) async {
+  editTask(String title, String description, bool isDone, Todo todos) async {
     QueryBuilder<Todo> query = QueryBuilder<Todo>(Todo());
 
     query.whereEqualTo('objectId', todos.objectId);
@@ -24,6 +24,7 @@ class TodoServicesParse implements TodoServices {
     if (todo != null) {
       todo.set('title', title);
       todo.set('description', description);
+      todo.set('isCompleted', isDone);
       var response = await todo.save();
       return response;
     }
@@ -44,5 +45,20 @@ class TodoServicesParse implements TodoServices {
     query.whereEqualTo('title', searchWord);
     List<Todo> todos = await query.find();
     return todos;
+  }
+
+  @override
+  taskCompletion(Todo todos, bool isCompleted) async {
+    QueryBuilder<Todo> query = QueryBuilder<Todo>(Todo());
+
+    query.whereEqualTo('objectId', todos.objectId);
+
+    Todo? todo = await query.first();
+
+    if (todo != null) {
+      todo.set('isCompleted', isCompleted);
+      var response = await todo.save();
+      return response;
+    }
   }
 }
