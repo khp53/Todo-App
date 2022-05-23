@@ -83,9 +83,9 @@ class SearchPageBody extends StatelessWidget {
                                       e.title,
                                       style: theme.textTheme.bodyText1,
                                     ),
-                                    trailing: Checkbox(
-                                      onChanged: (val) {},
-                                      value: false,
+                                    trailing: Icon(
+                                      Icons.forward,
+                                      color: theme.colorScheme.primary,
                                     ),
                                   ),
                                 ),

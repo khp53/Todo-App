@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/common/error_alert_popup.dart';
 import 'package:todo_app/common/list_title_deco.dart';
-import 'package:todo_app/common/success_alert_popup.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/screens/home/home_view.dart';
 import 'package:todo_app/screens/stateful_wrapper.dart';

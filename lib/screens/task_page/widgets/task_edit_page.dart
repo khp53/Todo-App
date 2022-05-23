@@ -19,6 +19,7 @@ class TaskEditPage extends StatelessWidget {
   onInit() {
     viewmodel.titleController.text = todo.title;
     viewmodel.descriptionController.text = todo.description;
+    viewmodel.isDone = todo.isCompleted;
   }
 
   @override
