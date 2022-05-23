@@ -62,6 +62,7 @@ class HomeBody extends StatelessWidget {
                         height: 20,
                       ),
                       CustomTextFormField(
+                        number: 5,
                         hintText: 'Add Description',
                         controller: homeViewmodel.descriptionController,
                         textInputAction: TextInputAction.done,

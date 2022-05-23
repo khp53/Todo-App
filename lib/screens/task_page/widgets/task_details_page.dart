@@ -61,8 +61,14 @@ class TaskDetailsPage extends StatelessWidget {
                 height: 5,
               ),
               ListTileDeco(
-                child: ListTile(
-                  title: Text(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    top: 20,
+                    bottom: 20,
+                    right: 5,
+                  ),
+                  child: Text(
                     todo.description,
                     style: theme.textTheme.bodyText1,
                   ),

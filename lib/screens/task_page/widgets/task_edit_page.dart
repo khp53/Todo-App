@@ -73,6 +73,7 @@ class TaskEditPage extends StatelessWidget {
                     height: 15,
                   ),
                   CustomTextFormField(
+                    number: 5,
                     hintText: 'Add Description',
                     controller: viewmodel.descriptionController,
                     textInputAction: TextInputAction.done,

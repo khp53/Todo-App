@@ -68,7 +68,9 @@ class CustomTextFormField extends StatelessWidget {
             color: Theme.of(context).colorScheme.error,
           ),
         ),
-        errorStyle: Theme.of(context).textTheme.bodyText2,
+        errorStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+              color: Theme.of(context).colorScheme.error,
+            ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide(
@@ -91,10 +93,14 @@ class CustomTextFormField extends StatelessWidget {
           ),
         ),
         hintText: hintText,
-        hintStyle: Theme.of(context).textTheme.bodyText2,
+        hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+              color: Theme.of(context).hintColor,
+            ),
         suffix: sufixText,
         labelText: lable ?? hintText,
-        labelStyle: Theme.of(context).textTheme.bodyText2,
+        labelStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+              color: Theme.of(context).hintColor,
+            ),
       ),
     );
   }
